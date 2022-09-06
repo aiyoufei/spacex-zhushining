@@ -1,0 +1,122 @@
+       {
+            _No: 0,
+            _type: 1, // 走个过场
+            _optionsFromStep: null,
+            _disc: ["准备好了吗？我们要开始喽。"],
+            _options: ["是的，可以开始了", "嗯，我已经准备好了"],
+            _input: null,
+            _nextStep: 1
+        },
+        {
+            _No: 1,
+            _type: 2,
+            _optionsFromStep: null,
+            _disc: ["你现在的心情怎么样？", "此时此刻你的心情怎么样啊", "你觉得这几天的心情怎么样？", "今天的心情如何？"],
+            _options: [
+                {
+                    _url: "cloud://diary-love-1g90od4x78601ab4.6469-diary-love-1g90od4x78601ab4-1301720474/system/emo1.webp",
+                    _score: 0,
+                    _nextStep: 2
+                },
+                {
+                    _url: "cloud://diary-love-1g90od4x78601ab4.6469-diary-love-1g90od4x78601ab4-1301720474/system/emo2.webp",
+                    _score: 1,
+                    _nextStep: 2
+                },
+                {
+                    _url: "cloud://diary-love-1g90od4x78601ab4.6469-diary-love-1g90od4x78601ab4-1301720474/system/emo3.webp",
+                    _score: 2,
+                    _nextStep: 2
+                },
+                {
+                    _url: "cloud://diary-love-1g90od4x78601ab4.6469-diary-love-1g90od4x78601ab4-1301720474/system/emo4.webp",
+                    _score: 3,
+                    _nextStep: 2
+                },
+                {
+                    _url: "cloud://diary-love-1g90od4x78601ab4.6469-diary-love-1g90od4x78601ab4-1301720474/system/emo5.webp",
+                    _score: 4,
+                    _nextStep: 2
+                }
+            ],
+            _input: null // 数字
+        },
+        {
+            _No: 2,
+            _type: 3,
+            _optionsFromStep: null,
+            _disc: ["对你的生活、工作、学习有多大的影响呢？", "对日常生活有多大影响？", "影响有多大？", "感觉对你有多深很大的影响吗？"],
+            _options: [
+                {
+                    _text: "影响很严重",
+                    _score: 0,
+                    _nextStep: 3
+                },
+                {
+                    _text: "有一些影响",
+                    _score: 1,
+                    _nextStep: 3
+                },
+                {
+                    _text: "没有影响",
+                    _score: 2,
+                    _nextStep: 3
+                }
+            ],
+            _input: null // 数字
+        },
+        {
+            _No: 3,
+            _type: 4, // 也是输入文字，但是不限制时间
+            _optionsFromStep: null,
+            _disc: ["具体说一下吧", "具体说一下？", "既然已经是现实，就不怕给写下来"],
+            _options: [],
+            _input: [],
+            _nextStep: 4
+        },
+        {
+            _No: 4,
+            _type: 5,
+            _optionsFromStep: null,
+            _disc: ["花5分钟，写下你的终极人生梦想", "快点时间，写下你的终极人生目标吧"],
+            _timeOut: 300,
+            _options: [""],
+            _input: [],
+            _nextStep: 5
+        },
+        {
+            _No: 5,
+            _type: 6,
+            _optionsFromStep: 4, // 来自哪个步骤或者null，如果是null，则读取input
+            _disc: ["在这些目标当中有多少是你最近半年就可以实现的呢？"],
+            _options: [""],
+            _input: null, // 记录数字,单选
+            _nextStep: 6
+        },
+        {
+            _No: 6,
+            _type: 7, // 没有时间要求的文本输入
+            _optionsFromStep: null,
+            _disc: ["为了实现这些目标，在接下来的两周内你可以做些什么？或者可能会遇到什么问题？"],
+            _options: [""],
+            _input: [],
+            _nextStep: 7
+        },
+        {
+            _No: 7,
+            _type: 8, // 单选
+            _optionsFromStep: 6, // 来自哪个步骤或者null，如果是null，则读取input
+            _disc: ["在这些目标当中有多少是你最近半年就可以实现的呢？"],
+            _options: [""],
+            _input: [],
+            _nextStep: 8
+        },
+        {
+            _No: 8,
+            _type: 9, // 多选，从其他step中取文字进来选择，然后
+            _optionsFromStep: [3, 7],
+            _disc: ["你今天写下了很多，需要记到日记中嘛？"],
+            _options: [],
+            _input: ["就这些吧", "算了"],
+            _nextStep: "end" // 如果是end，那就是最后一步了
+        }
