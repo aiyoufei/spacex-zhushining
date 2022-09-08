@@ -19,35 +19,39 @@ def launch_server():
 
     # Create an app layout
     app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',
-                                    style={'textAlign': 'center', 'color': '#503D36','font-size': 40}),
+                                    style={'textAlign': 'center', 'color': '#503D36', 'font-size': 40}),
                                     # TASK 1: Add a dropdown list to enable Launch Site selection
                                     # The default select value is for ALL sites
                                     dcc.Dropdown(id='site-dropdown',
-                                        options=drop_down_options(spacex_df),
-                                        value='ALL',
-                                        placeholder='Select a Launch Site here',
-                                        searchable=True,
-                                        ),
+                                                 options=drop_down_options(
+                                                     spacex_df),
+                                                 value='ALL',
+                                                 placeholder='Select a Launch Site here',
+                                                 searchable=True,
+                                                 ),
                                     html.Br(),
 
                                     # TASK 2: Add a pie chart to show the total successful launches count for all sites
                                     # If a specific launch site was selected, show the Success vs. Failed counts for the site
-                                    html.Div(dcc.Graph(id='success-pie-chart')),
+                                    html.Div(
+                                        dcc.Graph(id='success-pie-chart')),
                                     html.Br(),
 
                                     html.P("Payload range (Kg):"),
                                     # TASK 3: Add a slider to select payload range
                                     dcc.RangeSlider(id='payload-slider',
-                                        min=min_payload,
-                                        max=max_payload,
-                                        step=None,  # It will use marks
-                                        value=[min_payload, max_payload],
-                                        marks=get_range_slider_marks(max_payload, min_payload)),
+                                                    min=min_payload,
+                                                    max=max_payload,
+                                                    step=None,  # It will use marks
+                                                    value=[min_payload,
+                                                           max_payload],
+                                                    marks=get_range_slider_marks(max_payload, min_payload)),
 
                                     # TASK 4: Add a scatter chart to show the correlation between payload and launch success
-                                    html.Div(dcc.Graph(id='success-payload-scatter-chart')),
+                                    html.Div(
+                                        dcc.Graph(id='success-payload-scatter-chart')),
                                     ]
-                         )
+                          )
 
     # TASK 2:
     # Add a callback function for `site-dropdown` as input, `success-pie-chart` as output
@@ -60,12 +64,13 @@ def launch_server():
     # Add a callback function for `site-dropdown` and `payload-slider` as inputs, `success-payload-scatter-chart` as output
     @app.callback(Output(component_id='success-payload-scatter-chart', component_property='figure'),
                   [
-                    Input(component_id='site-dropdown', component_property='value'),
-                    Input(component_id='payload-slider', component_property='value'),
-                  ])
+        Input(component_id='site-dropdown', component_property='value'),
+        Input(component_id='payload-slider', component_property='value'),
+    ])
     def get_web_scatter_chart(site, payload_range):
         return get_scatter_chart(spacex_df, site, payload_range)
     app.run_server(port=3000)
+
 
 def drop_down_options(df):
     def option(site, value):
@@ -77,6 +82,7 @@ def drop_down_options(df):
     for i, site in enumerate(launch_sites(df)):
         options.append(option(site, site))
     return options
+
 
 def get_pie_chart(df, site):
     if site in launch_sites(df):
