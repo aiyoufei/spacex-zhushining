@@ -19,8 +19,7 @@ def launch_server():
 
     # Create an app layout
     app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',
-                                            style={'textAlign': 'center', 'color': '#503D36',
-                                                'font-size': 40}),
+                                    style={'textAlign': 'center', 'color': '#503D36','font-size': 40}),
                                     # TASK 1: Add a dropdown list to enable Launch Site selection
                                     # The default select value is for ALL sites
                                     dcc.Dropdown(id='site-dropdown',
@@ -47,7 +46,8 @@ def launch_server():
 
                                     # TASK 4: Add a scatter chart to show the correlation between payload and launch success
                                     html.Div(dcc.Graph(id='success-payload-scatter-chart')),
-                                    ])
+                                    ]
+                         )
 
     # TASK 2:
     # Add a callback function for `site-dropdown` as input, `success-pie-chart` as output
@@ -65,28 +65,32 @@ def launch_server():
                   ])
     def get_web_scatter_chart(site, payload_range):
         return get_scatter_chart(spacex_df, site, payload_range)
-
     app.run_server(port=3000)
-
 
 def drop_down_options(df):
     def option(site, value):
-        return {'label': site, 'value': value}
+        return {
+            'label': site,
+            'value': value
+        }
     options = [option('All Sites', 'ALL')]
     for i, site in enumerate(launch_sites(df)):
         options.append(option(site, site))
     return options
 
-
 def get_pie_chart(df, site):
     if site in launch_sites(df):
-        return px.pie(df[df['Launch Site'] == site],
-                      names='class',
-                      title=f'Success launches for {site} site')
+        return px.pie(
+            df[df['Launch Site'] == site],
+            names='class',
+            title=f'Success launches for {site} site'
+        )
     else:
-        return px.pie(df[df['class'] == 1],
-                      names='Launch Site',
-                      title='Total success launches by site')
+        return px.pie(
+            df[df['class'] == 1],
+            names='Launch Site',
+            title='Total success launches by site'
+        )
 
 
 def get_range_slider_marks(max_value, min_value, ticks=20):
@@ -103,10 +107,12 @@ def get_scatter_chart(df, site, payload_range=[0, 50000]):
     new_df = df[df['Payload Mass (kg)'].between(min_range, max_range)]
     if site in launch_sites(df):
         new_df = new_df[new_df['Launch Site'] == site]
-    return px.scatter(new_df,
-                      x='Payload Mass (kg)',
-                      y='class',
-                      color='Booster Version Category')
+    return px.scatter(
+        new_df,
+        x='Payload Mass (kg)',
+        y='class',
+        color='Booster Version Category'
+    )
 
 
 def launch_sites(df):
